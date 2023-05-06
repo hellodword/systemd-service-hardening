@@ -23,3 +23,12 @@ journalctl --since 13:11 --follow | grep SECCOMP | grep AdGuardHome | grep -oP '
 
 cat syscalls.txt | sort -n | uniq | xargs -L 1 ausyscall
 ```
+
+```sh
+sudo systemd-run --pty \
+    --property=DynamicUser=yes \
+    --property=AmbientCapabilities=CAP_NET_ADMIN \
+    --property=AmbientCapabilities=CAP_NET_BIND_SERVICE \
+    strace -f -ttt \
+        curl
+```
